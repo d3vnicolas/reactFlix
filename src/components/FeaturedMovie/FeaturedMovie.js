@@ -24,8 +24,11 @@ const FeatureMovie = ({item}) => {
                         <div className="featured--seasons">{item.number_of_seasons} temporada{item.number_of_seasons > 1 ? 's': ''}</div>
                     </div>
                     <div className="featured--description">{item.overview}</div>
-                    <div className="featured--buttons"></div>
-                    <div className="featured--genres"><strong>Gêneros: </strong>{genres.join(', ')}</div>
+                    <div className="featured--buttons">
+                        <a href={`/watch/${item.id}`} className="featured--btnWatch">► Assistir</a>
+                        <a href={`/list/add/${item.id}`} className="featured--btnAdd">+ Minha Lista</a>
+                    </div>
+                    <div className="featured--genres"><strong>{genres.length === 0? '' : genres.length > 1? 'Gêneros: ' : 'Gênero: '}</strong>{genres.join(', ')}</div>
                 </div>
             </div>
         </section>

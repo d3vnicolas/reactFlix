@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Tmdb from './Tmdb';
-import MovieRow from './components/MovieRow';
+import MovieRow from './components/MovieRow/';
 import './App.css';
 import FeatureMovie from './components/FeaturedMovie';
+import Header from './components/Header';
 
 const AppMain = () => {
 
@@ -15,6 +16,7 @@ const AppMain = () => {
 
       let list = await Tmdb.getHomeList();
       setMovieList(list);
+      console.log(list);
 
       // Pegando o featured
       let originals = list.filter(i=>i.slug === 'originals');
@@ -22,7 +24,6 @@ const AppMain = () => {
       let chosen = originals[0].items.results[randomChosen];
       let chosenInfo = await Tmdb.getMovieInfo(chosen.id, 'tv');
       setFeaturedData(chosenInfo);
-      console.log(chosenInfo);
     }
 
     loadAll();
@@ -32,10 +33,12 @@ const AppMain = () => {
 
     <div className="page">
 
+      <Header />
+
       {featuredData &&
         <FeatureMovie item={featuredData}/>
+        
       }
-
       <section className="lists">
         {movieList.map((item, key)=>(
           <MovieRow key={key} title={item.title} items={item.items} />
