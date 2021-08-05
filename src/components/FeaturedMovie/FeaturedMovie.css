@@ -24,7 +24,7 @@
     font-weight: bold;
 }
 .featured--info{
-    font-size: 1.2rem;
+    font-size: 1.7rem;
     font-weight: bold;
     margin-top: 16px;
 }
@@ -72,4 +72,27 @@
     margin-top: 16px;
     font-size: 1rem;
     color: #999;
+}
+
+@media screen and (max-width: 768px){
+    .featured{
+        height: 90vh;
+    }
+    .featured--name{
+        font-size: 3rem
+    }
+    .featured--info{
+        font-size: 1rem;
+    }
+    .featured--description{
+        font-size: .9rem;
+        max-width: 100%;
+        margin-right: 32px;
+    }
+    .featured--btnWatch, .featured--btnAdd{
+        font-size: 1rem;
+    }
+    .featured--genres{
+        font-size: 1rem;
+    }
 }

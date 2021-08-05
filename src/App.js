@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Tmdb from './Tmdb';
 import MovieRow from './components/MovieRow/';
 import './App.css';
-import FeatureMovie from './components/FeaturedMovie';
-import Header from './components/Header';
+import FeatureMovie from './components/FeaturedMovie/';
+import Header from './components/Header/';
 
 const AppMain = () => {
 
   const [movieList, setMovieList] = useState([]);
   const [featuredData, setFeaturedData] = useState(null);
+  const [blackHeader, setBlackHeader] = useState(false);
 
   useEffect(() => {
     const loadAll = async () => {
@@ -29,11 +30,26 @@ const AppMain = () => {
     loadAll();
   }, []);
 
+  useEffect (() => {
+    const scrollListener = () => {
+      if(window.scrollY > 50){
+        setBlackHeader(true);
+      }else{
+        setBlackHeader(false);
+      }
+    }
+
+    window.addEventListener('scroll', scrollListener);
+    return () => {
+      window.removeEventListener('scroll', scrollListener);
+    }
+  }, []);
+
   return (
 
     <div className="page">
 
-      <Header />
+      <Header black={blackHeader}/>
 
       {featuredData &&
         <FeatureMovie item={featuredData}/>
@@ -44,6 +60,17 @@ const AppMain = () => {
           <MovieRow key={key} title={item.title} items={item.items} />
         ))}
       </section>
+
+      <footer>
+        Feito com <span role="img" aria-label="coração">❤️</span> por Nicolas Soares <br />
+        Direitos de imagem para Netflix <br />
+        Dados utilizados do TMDB
+      </footer>
+      {movieList.length <= 0 &&
+        <div className="loading">
+            <img src="https://media.filmelier.com/noticias/br/2020/03/Netflix_LoadTime.gif" alt="Loading" />
+        </div>
+      }
     </div>
 
   )
